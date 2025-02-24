@@ -1,0 +1,11 @@
+﻿<RevitAddIns>
+    <AddIn Type="Application">
+        <Name>Arca</Name>
+        <Assembly>arca/arca.dll</Assembly>
+        <AddInId>B280D91B-263E-4FCD-8CC4-F56695DFCB2E</AddInId>
+        <FullClassName>arca.Application</FullClassName>
+        <VendorId>Development</VendorId>
+        <VendorDescription></VendorDescription>
+        <VendorEmail></VendorEmail>
+    </AddIn>
+</RevitAddIns>
