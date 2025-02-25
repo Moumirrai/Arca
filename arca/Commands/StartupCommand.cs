@@ -29,6 +29,11 @@ public class StartupCommand : ExternalCommand
 
         try
         {
+            UiApplication.ViewActivated += (sender, e) =>
+            {
+                Console.WriteLine("View Activated");
+            };
+            
             var windowHandle = UiApplication.MainWindowHandle;
 
             if (windowHandle == IntPtr.Zero)
