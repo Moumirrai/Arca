@@ -27,9 +27,9 @@ public class ButtonHelper
         }
 
         var button = panel.FindItem("CustomCtrl_%CustomCtrl_%"
-                              + tabName + "%" + panelName + "%" + buttonName,
+                                    + tabName + "%" + panelName + "%" + buttonName,
             true);
-        
+
         if (button == null)
         {
             Console.WriteLine($"Button {buttonName} not found.");
@@ -38,11 +38,11 @@ public class ButtonHelper
 
         return button;
     }
-    
+
     public static void RemoveTextFromButton(IList<RibbonItem> ribbonItems, string tabName, string panelName)
     {
         var buttonCache = new Dictionary<string, AW.RibbonItem>();
-        
+
         foreach (var ribbonItem in ribbonItems)
         {
             if (!buttonCache.TryGetValue(ribbonItem.Name, out var button))
@@ -50,18 +50,19 @@ public class ButtonHelper
                 button = GetButton(tabName, panelName, ribbonItem.Name);
                 buttonCache.Add(ribbonItem.Name, button);
             }
-            
+
             if (button != null) button.ShowText = false;
         }
     }
-    
-    public static PushButtonData CreateIconButton<T>(string imagePath, string largeImagePath, string tooltipText) where T : IExternalCommand
+
+    public static PushButtonData CreateIconButton<T>(string imagePath, string largeImagePath, string name)
+        where T : IExternalCommand
     {
         string className = typeof(T).ToString();
-        var pushButtonData = new PushButtonData(className, className, Assembly.GetExecutingAssembly().Location, className);
+        var pushButtonData =
+            new PushButtonData(className, name, Assembly.GetExecutingAssembly().Location, className);
         pushButtonData.LargeImage = new BitmapImage(new Uri(largeImagePath, UriKind.Relative));
         pushButtonData.Image = new BitmapImage(new Uri(imagePath, UriKind.Relative));
-        pushButtonData.ToolTip = tooltipText;
         return pushButtonData;
     }
 }

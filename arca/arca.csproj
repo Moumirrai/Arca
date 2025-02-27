@@ -56,8 +56,19 @@
     <ItemGroup>
         <Resource Include="Resources\Icons\RibbonIcon16.png"/>
         <Resource Include="Resources\Icons\RibbonIcon32.png"/>
-        <Resource Include="Resources\Icons\AlignLeft16.png"/>
-        <Resource Include="Resources\Icons\AlignLeft32.png"/>
+        <Resource Include="Resources\Icons\Align\AlignBottomIcon32.png"/>
+        <Resource Include="Resources\Icons\Align\AlignBottomIcon16.png"/>
+        <Resource Include="Resources\Icons\Align\AlignCenterIcon32.png"/>
+        <Resource Include="Resources\Icons\Align\AlignCenterIcon16.png"/>
+        <Resource Include="Resources\Icons\Align\AlignHorizontalIcon32.png"/>
+        <Resource Include="Resources\Icons\Align\AlignHorizontalIcon16.png"/>
+        <Resource Include="Resources\Icons\Align\AlignLeftIcon32.png"/>
+        <Resource Include="Resources\Icons\Align\AlignLeftIcon16.png"/>
+        <Resource Include="Resources\Icons\Align\AlignRightIcon32.png"/>
+        <Resource Include="Resources\Icons\Align\AlignRightIcon16.png"/>
+        <Resource Include="Resources\Icons\Align\AlignTopIcon32.png"/>
+        <Resource Include="Resources\Icons\Align\AlignTopIcon16.png"/>
+        
     </ItemGroup>
 
     <ItemGroup>
