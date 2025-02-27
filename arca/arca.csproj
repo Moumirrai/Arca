@@ -61,10 +61,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Models"/>
-    </ItemGroup>
-
-    <ItemGroup>
       <Reference Include="Xceed.Wpf.AvalonDock">
         <HintPath>..\..\..\..\..\Autotesk\Revit2025\Revit 2025\Xceed.Wpf.AvalonDock.dll</HintPath>
         <Private>False</Private>

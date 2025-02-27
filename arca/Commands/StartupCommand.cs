@@ -26,7 +26,6 @@ public class StartupCommand : ExternalCommand
         view.ShowDialog();
 
         var ribbon = ComponentManager.Ribbon;*/
-
         try
         {
             UiApplication.ViewActivated += (sender, e) =>

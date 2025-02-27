@@ -11,6 +11,12 @@ namespace arca.Commands;
 ///     External command entry point for aligning elements
 /// </summary>
 [Transaction(TransactionMode.Manual)]
+public class AlignCommand : AlignBaseCommand
+{
+    public override void Execute() => AlignElements(Alignment.Left);
+}
+
+[Transaction(TransactionMode.Manual)]
 public class AlignLeftCommand : AlignBaseCommand
 {
     public override void Execute() => AlignElements(Alignment.Left);
@@ -34,9 +40,21 @@ public class AlignBottomCommand : AlignBaseCommand
     public override void Execute() => AlignElements(Alignment.Bottom);
 }
 
+[Transaction(TransactionMode.Manual)]
+public class AlignCenterCommand : AlignBaseCommand
+{
+    public override void Execute() => AlignElements(Alignment.Center);
+}
+
+[Transaction(TransactionMode.Manual)]
+public class AlignHorizontalCommand : AlignBaseCommand
+{
+    public override void Execute() => AlignElements(Alignment.Horizontal);
+}
+
 public abstract class AlignBaseCommand : ExternalCommand
 {
-    protected enum Alignment { Left, Right, Top, Bottom }
+    protected enum Alignment { Left, Right, Top, Bottom, Center, Horizontal }
     
     protected void AlignElements(Alignment alignment)
     {
@@ -56,6 +74,8 @@ public abstract class AlignBaseCommand : ExternalCommand
             Alignment.Right => coordinateDictionary.Max(x => x.Value.X),
             Alignment.Top => coordinateDictionary.Max(x => x.Value.Y),
             Alignment.Bottom => coordinateDictionary.Min(x => x.Value.Y),
+            Alignment.Center => coordinateDictionary.Average(x => x.Value.X),
+            Alignment.Horizontal => coordinateDictionary.Average(x => x.Value.Y),
             _ => 0
         };
         
@@ -70,22 +90,11 @@ public abstract class AlignBaseCommand : ExternalCommand
                     var point = locationPoint.Point;
                     point = alignment switch
                     {
-                        Alignment.Left or Alignment.Right => new XYZ(targetCoordinate, point.Y, point.Z),
-                        Alignment.Top or Alignment.Bottom => new XYZ(point.X, targetCoordinate, point.Z),
+                        Alignment.Left or Alignment.Right or Alignment.Center => new XYZ(targetCoordinate, point.Y, point.Z),
+                        Alignment.Top or Alignment.Bottom or Alignment.Horizontal => new XYZ(point.X, targetCoordinate, point.Z),
                         _ => point
                     };
                     locationPoint.Point = point;
-                }
-                else if (element is TextElement textElement)
-                {
-                    var coord = textElement.Coord;
-                    coord = alignment switch
-                    {
-                        Alignment.Left or Alignment.Right => new XYZ(targetCoordinate, coord.Y, coord.Z),
-                        Alignment.Top or Alignment.Bottom => new XYZ(coord.X, targetCoordinate, coord.Z),
-                        _ => coord
-                    };
-                    textElement.Coord = coord;
                 }
             }
             transaction.Commit();
@@ -104,14 +113,10 @@ public abstract class AlignBaseCommand : ExternalCommand
             {
                 coordinateDictionary[elementId] = locationPoint.Point;
             }
-            else if (element.Location is LocationCurve locationCurve && locationCurve.Curve is Line line)
+            /*else if (element.Location is LocationCurve locationCurve && locationCurve.Curve is Line line)
             {
                 coordinateDictionary[elementId] = line.GetEndPoint(0);
-            }
-            else if (element is TextElement textElement)
-            {
-                coordinateDictionary[elementId] = textElement.Coord;
-            }
+            }*/
         }
         return coordinateDictionary;
     }
